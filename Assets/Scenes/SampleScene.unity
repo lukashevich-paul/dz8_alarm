@@ -1288,7 +1288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1011569794}
-  - component: {fileID: 1011569795}
+  - component: {fileID: 1011569796}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -1309,13 +1309,15 @@ Transform:
   m_LocalScale: {x: 8.25, y: 2.99, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1703337468}
+  - {fileID: 1764574414}
   - {fileID: 1859580959}
   - {fileID: 1301184322}
   - {fileID: 1297401626}
   - {fileID: 613712287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1011569795
+--- !u!114 &1011569796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1324,10 +1326,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1011569793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa9e2a8b4fff020459ceeb329877d34a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c3f784c54252a24c87aab09c63a6c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventTrigger: {fileID: 1703337466}
+  _detector: {fileID: 1703337466}
+  _alarm: {fileID: 1764574415}
   _walls:
   - {fileID: 1859580959}
 --- !u!1 &1033063272
@@ -2233,12 +2236,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703337465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03, y: -2.04, z: -0.061788414}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.76923084, z: -0.061788414}
+  m_LocalScale: {x: 0.121212125, y: 0.3344482, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1011569794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739256468
 GameObject:
@@ -2446,12 +2449,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764574412}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03, y: -2.04, z: -0.061788414}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.76923084, z: -0.061788414}
+  m_LocalScale: {x: 0.121212125, y: 0.3344482, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1011569794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1764574415
 MonoBehaviour:
@@ -2466,7 +2469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeTime: 5
-  _eventTrigger: {fileID: 1703337466}
 --- !u!1 &1776666603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,5 +3152,3 @@ SceneRoots:
   - {fileID: 1480107237}
   - {fileID: 1278468290}
   - {fileID: 1011569794}
-  - {fileID: 1764574414}
-  - {fileID: 1703337468}

@@ -1,32 +1,37 @@
 using UnityEngine;
 
-public class WallViwer : MonoBehaviour
+public class House : MonoBehaviour
 {
-    [SerializeField] private EventTrigger _eventTrigger;
+    [SerializeField] private ThiefDetector _detector;
+    [SerializeField] private Alarm _alarm;
     [SerializeField] private Transform[] _walls;
 
     private void OnEnable()
     {
-        _eventTrigger.Enter += Hide;
-        _eventTrigger.Exit += Show;
+        _detector.Entered += OnEntered;
+        _detector.Exited += OnExited;
     }
 
     private void OnDisable()
     {
-        _eventTrigger.Enter -= Hide;
-        _eventTrigger.Exit -= Show;
+        _detector.Entered -= OnEntered;
+        _detector.Exited -= OnExited;
     }
 
-    private void Hide()
+    private void OnEntered()
     {
+        _alarm.TurnOn();
+
         foreach (Transform wall in _walls)
         {
             wall.gameObject.SetActive(false);
         }
     }
 
-    private void Show()
+    private void OnExited()
     {
+        _alarm.TurnOff();
+
         foreach (Transform wall in _walls)
         {
             wall.gameObject.SetActive(true);

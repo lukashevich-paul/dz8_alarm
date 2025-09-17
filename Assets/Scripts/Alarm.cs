@@ -1,22 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Alarm : MonoBehaviour
 {
     public const float MinVolume = 0f;
     public const float MaxVolume = 1f;
 
     [SerializeField] private float _fadeTime = 5f;
-    [SerializeField] private EventTrigger _eventTrigger;
 
     private AudioSource _audioSource;
-    private float _volume = 0;
-    private bool _isActive = false;
+    private float _volume = 0f;
 
-    private void OnEnable()
-    {
-        _eventTrigger.Enter += ToggleActive;
-        _eventTrigger.Exit += ToggleActive;
-    }
+    private Coroutine _coroutine;
 
     private void Start()
     {
@@ -24,44 +20,47 @@ public class Alarm : MonoBehaviour
         _audioSource.volume = _volume;
     }
 
-    private void Update()
+    private IEnumerator FadeAlarm(float volumeTarget)
     {
-        ChangeVolume();
+        float delay = Time.deltaTime;
+        WaitForSeconds wait = new WaitForSeconds(delay);
 
-        if (_audioSource.isPlaying == true)
+        while (volumeTarget != _volume)
         {
+            _volume = Mathf.MoveTowards(_volume, volumeTarget, MaxVolume * delay / _fadeTime);
             _audioSource.volume = _volume;
+            SoundTumbler();
 
-            if (_audioSource.isPlaying == true && _volume <= MinVolume)
-                _audioSource.Stop();
+            yield return wait;
         }
-        else
-        {
-            if (_volume > MinVolume)
-                _audioSource.Play();
-        }
+
+        StopCoroutine(_coroutine);
+        _coroutine = null;
     }
 
-    private void OnDisable()
+    private void SoundTumbler()
     {
-        _eventTrigger.Enter -= ToggleActive;
-        _eventTrigger.Exit -= ToggleActive;
+        if (_audioSource.isPlaying == true && _volume <= MinVolume)
+            _audioSource.Stop();
+        else if (_audioSource.isPlaying == false && _volume > MinVolume)
+            _audioSource.Play();
     }
 
-    private void ChangeVolume()
+    private void StartCoroutine(float target)
     {
-        if (_isActive == true && _volume < MaxVolume)
-        {
-            _volume = Mathf.MoveTowards(_volume, MaxVolume, MaxVolume / _fadeTime * Time.deltaTime);
-        }
-        else if (_isActive == false && _volume > MinVolume)
-        {
-            _volume = Mathf.MoveTowards(_volume, MinVolume, MaxVolume / _fadeTime * Time.deltaTime);
-        }
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(FadeAlarm(target));
     }
 
-    private void ToggleActive()
+    public void TurnOn()
     {
-        _isActive = !_isActive;
+        StartCoroutine(MaxVolume);
+    }
+
+    public void TurnOff()
+    {
+        StartCoroutine(MinVolume);
     }
 }

@@ -1,20 +1,20 @@
 using System;
 using UnityEngine;
 
-public class EventTrigger : MonoBehaviour
+public class ThiefDetector : MonoBehaviour
 {
-    public event Action Enter;
-    public event Action Exit;
+    public event Action Entered;
+    public event Action Exited;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<Mover>(out _))
-            Enter?.Invoke();
+            Entered?.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<Mover>(out _))
-            Exit?.Invoke();
+            Exited?.Invoke();
     }
 }
